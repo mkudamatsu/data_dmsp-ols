@@ -14,3 +14,4 @@ Matlab Mapping Toolbox
 
 Matlab Statistics and Machine Learning Toolbox
 
+Note: The pct_lights data for F182011 is missing (confirmed by NOAA staff on 22 May, 2018). As the deblurring process requires the pct_lights data, the year 2011 nighttime light data cannot be deblurred at this moment.
