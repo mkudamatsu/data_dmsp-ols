@@ -34,28 +34,32 @@ def main():
         'F182010','F182011','F182012','F182013'
         ]
     for satellite_year in satellite_years:
+
         print "Working on satellite-year " + satellite_year
+
+        print "...Set the version number for stable_lights data"
+        if satellite_year == "F182010":
+            version = ".v4d"
+        elif satellite_year[0:3] == 'F18':
+            version = ".v4c"
+        else:
+            version = ".v4b"
+
+        print "...Clipping stable_lights raster for " + satellite_year
+        input_raster = "../orig/" + satellite_year + version + "_web.stable_lights.avg_vis.tif"
+        output_raster = "../data/" + satellite_year + "_stable_lights_aze.tif"
+        clip_raster(in_raster = input_raster, clipping_extent = input_extent, out_raster = output_raster)
+
+        print "...Set the version number for pct_lights data"
+        if satellite_year[0:3] == 'F18':
+            version = ".v4c"
+        else:
+            version = ".v4b"
+
+        print "...Clipping pct_lights raster for " + satellite_year
         if satellite_year == 'F182011':
             print "...We skip " + satellite_year + "because the pct_lights.tif is currently not available."
         else:
-            print "...Set the version number for stable_lights data"
-            if satellite_year == "F182010":
-                version = ".v4d"
-            elif satellite_year[0:3] == 'F18':
-                version = ".v4c"
-            else:
-                version = ".v4b"
-            print "...Clipping stable_lights raster for " + satellite_year
-            input_raster = "../orig/" + satellite_year + version + "_web.stable_lights.avg_vis.tif"
-            output_raster = "../data/" + satellite_year + "_stable_lights_aze.tif"
-            clip_raster(in_raster = input_raster, clipping_extent = input_extent, out_raster = output_raster)
-
-            print "...Set the version number for pct_lights data"
-            if satellite_year[0:3] == 'F18':
-                version = ".v4c"
-            else:
-                version = ".v4b"
-            print "...Clipping pct_lights raster for " + satellite_year
             input_raster = "../orig/" + satellite_year + version + ".pct_lights.tif"
             output_raster = "../temp/" + satellite_year + "_pct_lights_aze.tif"
             clip_raster(in_raster = input_raster, clipping_extent = input_extent, out_raster = output_raster)
